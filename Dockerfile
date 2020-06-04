@@ -4,7 +4,7 @@ FROM debian:9
 RUN apt-get update
 RUN apt-get install -y  gcc-arm-linux-gnueabihf     \
                         g++-arm-linux-gnueabihf     \
-                        make wget                   \
+                        make wget libexpat-dev      \
                         gcc g++ zip              
 
 # Cleaning up to reduce image size
