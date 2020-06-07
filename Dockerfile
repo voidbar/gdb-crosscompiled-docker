@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:9 AS builder
 
 # Install prerequistes
 RUN apt-get update
@@ -28,8 +28,10 @@ ENV OUTPUT "/root/gdb-cross.tar.gz"
 
 RUN ./build-gdb.sh ${OUTPUT}
 
-WORKDIR /root
-RUN rm -rf /root/tmp
 
-CMD cat ${OUTPUT}
+FROM alpine:latest  
+WORKDIR /root/
+COPY --from=builder /root/gdb-cross.tar.gz /root/gdb-cross.tar.gz
+CMD cat /root/gdb-cross.tar.gz
+
 
